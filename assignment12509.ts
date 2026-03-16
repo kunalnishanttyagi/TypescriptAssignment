@@ -72,10 +72,18 @@ function mergeData<T extends User,U extends Purchase|Review>(users:T[],args:U[],
       const secondKey=category==="reviews"?"star":"price";
       // ans[user][category] = [];
         // it is review objects
-      ans[user][category].push({
-        [firstKey]:(currArg as any)[firstKey],
-        [secondKey]:(currArg as any)[secondKey]
-      })
+      // ans[user][category].push({
+      //   [firstKey]:(currArg as any)[firstKey],
+      //   [secondKey]:(currArg as any)[secondKey]
+      // })
+      let key="broCode";
+      if (category === "purchases") {
+    const purchase = currArg as Purchase;
+    currUser[category]!.push({ item: purchase.item, price: purchase.price });
+  } else {
+    const review = currArg as Review;
+    currUser[category]!.push({ review: review.review, star: review.star });
+  }
         }
       
       
